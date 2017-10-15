@@ -9,9 +9,9 @@ export default class EditInPlace extends Component {
         onChange: PropTypes.func.isRequired,
         placeholder: PropTypes.string,
         className: PropTypes.string,
-        activeClassName: PropTypes.string,
         validate: PropTypes.func,
         style: PropTypes.object,
+        extraParams: PropTypes.object,
         errorStyle: PropTypes.object,
         isDisabled: PropTypes.bool,
         type: PropTypes.oneOf([
@@ -57,7 +57,7 @@ export default class EditInPlace extends Component {
      */
     _onFieldChange = (e, blurOnFinish) => {
 
-        const { validate, onChange, name } = this.props;
+        const { validate, onChange, name, extraParams } = this.props;
 
         // Update Value
         this.setState({ value: e.target.value })
@@ -68,12 +68,12 @@ export default class EditInPlace extends Component {
             if (validate) {
 
                 if (validate(e)) {
-                    onChange(e.target.value, name)
+                    onChange(e.target.value, name, extraParams)
                 } else {
                     this.setState({ error: true })
                 }
             } else {
-                onChange(e.target.value, name)
+                onChange(e.target.value, name, extraParams)
 
             }
 
@@ -103,7 +103,7 @@ export default class EditInPlace extends Component {
      */
     getEditComponent = () => {
 
-        const { isDisabled, type, style, errorStyle, dropDownOptions, name } = this.props;
+        const { isDisabled, type, style, errorStyle, dropDownOptions, name, placeholder, className } = this.props;
 
         const blurOnFinish = this.blurOnFinish.includes(type);
 
@@ -115,11 +115,13 @@ export default class EditInPlace extends Component {
             onBlur: blurOnFinish ? null : this._onFinishEditing,
             onFocus: this._handleFocus,
             autoFocus: true,
+            placeholder,
+            className,
             name
         }
 
         if (!this.state.editable) {
-            return <span onClick={this.onEditEnable}>{this.state.value}</span>
+            return <span onClick={isDisabled ? null : this.onEditEnable}>{this.state.value}</span>
         } else {
 
             // Custom Inputs

@@ -34,7 +34,8 @@ import EditInPlace from "react-edit-in-place"
 
 3 - add JSX :
 
- ### text | number | date | time | datetime-local | color | email | month | range | search | tel | url | week inputs
+### text | number | date | time | datetime-local | color | email | month | range | search | tel | url | week inputs
+
 ```
 <EditInPlace 
     value="my text" 
@@ -46,7 +47,8 @@ import EditInPlace from "react-edit-in-place"
     errorStyle={{color:"red"}}
     isDisabled={false}
     validate={(value) => true}
-    onChange={(value, name) => console.log(value, name)} 
+    extraParams={{id:"1"}}
+    onChange={(value, name, extraParams) => console.log(value, name, extraParams)} 
 />
 ```
 
