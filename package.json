@@ -1,6 +1,6 @@
 {
   "name": "react-edit-in-place",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "Edit In Place Component For React",
   "main": "build/index.js",
   "peerDependencies": {

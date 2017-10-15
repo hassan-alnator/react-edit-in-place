@@ -1,5 +1,5 @@
 # Edit In Place React
-edit in place component for react covers most of the input types as the following : 
+All in one edit in place component for react covers most of the input types as the following : 
 
 - text
 - number

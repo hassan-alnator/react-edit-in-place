@@ -537,7 +537,7 @@ var EditInPlace = function (_Component) {
             value: _this.props.value,
             editable: false,
             error: false
-        }, _this._onFieldChange = function (e, blurOnFinish) {
+        }, _this._onFieldChange = function (e, blurOnFinish, extraParams) {
             var _this$props = _this.props,
                 validate = _this$props.validate,
                 onChange = _this$props.onChange,
@@ -553,12 +553,12 @@ var EditInPlace = function (_Component) {
                 if (validate) {
 
                     if (validate(e)) {
-                        onChange(e.target.value, name);
+                        onChange(e.target.value, name, extraParams);
                     } else {
                         _this.setState({ error: true });
                     }
                 } else {
-                    onChange(e.target.value, name);
+                    onChange(e.target.value, name, extraParams);
                 }
             }
 
@@ -571,14 +571,17 @@ var EditInPlace = function (_Component) {
                 style = _this$props2.style,
                 errorStyle = _this$props2.errorStyle,
                 dropDownOptions = _this$props2.dropDownOptions,
-                name = _this$props2.name;
+                name = _this$props2.name,
+                placeholder = _this$props2.placeholder,
+                className = _this$props2.className,
+                extraParams = _this$props2.extraParams;
 
 
             var blurOnFinish = _this.blurOnFinish.includes(type);
 
             var fieldProps = {
                 onChange: function onChange(e) {
-                    return _this._onFieldChange(e, blurOnFinish);
+                    return _this._onFieldChange(e, blurOnFinish, extraParams);
                 },
                 disabled: isDisabled ? true : false,
                 style: _this.state.error ? _extends({}, style, errorStyle) : style,
@@ -586,13 +589,15 @@ var EditInPlace = function (_Component) {
                 onBlur: blurOnFinish ? null : _this._onFinishEditing,
                 onFocus: _this._handleFocus,
                 autoFocus: true,
+                placeholder: placeholder,
+                className: className,
                 name: name
             };
 
             if (!_this.state.editable) {
                 return _react2.default.createElement(
                     'span',
-                    { onClick: _this.onEditEnable },
+                    { onClick: isDisabled ? null : _this.onEditEnable },
                     _this.state.value
                 );
             } else {
@@ -695,9 +700,9 @@ EditInPlace.propTypes = {
     onChange: _propTypes2.default.func.isRequired,
     placeholder: _propTypes2.default.string,
     className: _propTypes2.default.string,
-    activeClassName: _propTypes2.default.string,
     validate: _propTypes2.default.func,
     style: _propTypes2.default.object,
+    extraParams: _propTypes2.default.object,
     errorStyle: _propTypes2.default.object,
     isDisabled: _propTypes2.default.bool,
     type: _propTypes2.default.oneOf(['color', 'date', 'datetime-local', 'email', 'month', 'number', 'range', 'search', 'tel', 'time', 'url', 'week', 'text', 'select', 'textarea']).isRequired,

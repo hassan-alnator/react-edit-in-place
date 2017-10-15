@@ -55,9 +55,9 @@ export default class EditInPlace extends Component {
      * @param {boolean} blurOnFinish if the input finished after updating its value
      * @memberof EditInPlace
      */
-    _onFieldChange = (e, blurOnFinish) => {
+    _onFieldChange = (e, blurOnFinish, extraParams) => {
 
-        const { validate, onChange, name, extraParams } = this.props;
+        const { validate, onChange, name } = this.props;
 
         // Update Value
         this.setState({ value: e.target.value })
@@ -103,12 +103,12 @@ export default class EditInPlace extends Component {
      */
     getEditComponent = () => {
 
-        const { isDisabled, type, style, errorStyle, dropDownOptions, name, placeholder, className } = this.props;
+        const { isDisabled, type, style, errorStyle, dropDownOptions, name, placeholder, className, extraParams } = this.props;
 
         const blurOnFinish = this.blurOnFinish.includes(type);
 
         const fieldProps = {
-            onChange: (e) => this._onFieldChange(e, blurOnFinish),
+            onChange: (e) => this._onFieldChange(e, blurOnFinish, extraParams),
             disabled: isDisabled ? true : false,
             style: this.state.error ? { ...style, ...errorStyle } : style,
             value: this.state.value,
