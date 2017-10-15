@@ -78,18 +78,18 @@ import EditInPlace from "react-edit-in-place"
 
 ### Props
 
-- name(string | Required): name or unique identifier of the input.
-- value(string | isRequired) : the value of the input.
-- onChange(Function | Required) : triggred when the value is changed.
-- placeholder(string) : input Place Holder.
-- className(string) : Custom Classes to be added to the input when it is displayed.
-- validate(Function): a validation function that get passed the value before triggering the onChange Event, it returns true or false as of valid data of invalid data.
-- style(object): Style Object to be added to the input when it is displayed.
-- extraParams(object): any extra data you need to be passed on calling the onChange Function.
-- errorStyle(object) : the style of the input when the validation function returnes false which is invalid data.
-- isDisabled(bool) : disable the edit.
-- type(string) : the type of the edit input , which covers only the following (color,date,datetime-local,email,month,number,range,search,tel,time,url,week,text,select,textarea).
-- dropDownOptions(array) : DropDown input options list
+- name (String | Required): name or unique identifier of the input.
+- value (String | Required) : the value of the input.
+- onChange (Function | Required) : triggred when the value is changed.
+- placeholder (String) : input Place Holder.
+- className (String) : Custom Classes to be added to the input when it is displayed.
+- validate (Function): a validation function that get passed the value before triggering the onChange Event, it returns true or false as of valid data of invalid data.
+- style (Object): Style Object to be added to the input when it is displayed.
+- extraParams (Object): any extra data you need to be passed on calling the onChange Function.
+- errorStyle (Object) : the style of the input when the validation function returnes false which is invalid data.
+- isDisabled (Bool) : disable the edit.
+- type (String) : the type of the edit input , which covers only the following (color,date,datetime-local,email,month,number,range,search,tel,time,url,week,text,select,textarea).
+- dropDownOptions (Array) : DropDown input options list
 
             
             
