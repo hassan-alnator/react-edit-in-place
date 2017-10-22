@@ -91,6 +91,12 @@ import EditInPlace from "react-edit-in-place"
 - type (String) : the type of the edit input , which covers only the following (color,date,datetime-local,email,month,number,range,search,tel,time,url,week,text,select,textarea).
 - dropDownOptions (Array) : DropDown input options list
 
+
+### Feedback
+
+For any bugs or feedback , please contact me at hassanalnator@gmail.com
+
+Github Repo : https://github.com/hassan-alnator/react-edit-in-place
             
             
 

@@ -50,17 +50,14 @@ export default class EditInPlace extends Component {
     };
 
     /**
-     * Triggered When a Field Value is Changed
+     * Triggered When a Field Value is Blur
      * @param {Object} e change event of input
      * @param {boolean} blurOnFinish if the input finished after updating its value
      * @memberof EditInPlace
      */
-    _onFieldChange = (e, blurOnFinish, extraParams) => {
+    _onFieldBlur = (e, blurOnFinish, extraParams) => {
 
         const { validate, onChange, name } = this.props;
-
-        // Update Value
-        this.setState({ value: e.target.value })
 
         // Change Prop and Validation
         if (onChange) {
@@ -80,8 +77,20 @@ export default class EditInPlace extends Component {
         }
 
         // Finish if the component finished on blur
-        if (blurOnFinish) this._onFinishEditing();
+        this._onFinishEditing();
 
+    }
+
+    /**
+     * Triggered When a Field Value is Changed
+     * @param {Object} e change event of input
+     * @param {boolean} blurOnFinish if the input finished after updating its value
+     * @memberof EditInPlace
+     */
+    _onFieldChange = (e, blurOnFinish) => {
+
+        this.setState({ value: e.target.value })
+        if (blurOnFinish) this._onFinishEditing();
     }
 
 
@@ -105,6 +114,7 @@ export default class EditInPlace extends Component {
 
         const { isDisabled, type, style, errorStyle, dropDownOptions, name, placeholder, className, extraParams } = this.props;
 
+        // is the input blurable
         const blurOnFinish = this.blurOnFinish.includes(type);
 
         const fieldProps = {
@@ -112,7 +122,7 @@ export default class EditInPlace extends Component {
             disabled: isDisabled ? true : false,
             style: this.state.error ? { ...style, ...errorStyle } : style,
             value: this.state.value,
-            onBlur: blurOnFinish ? null : this._onFinishEditing,
+            onBlur: (e) => blurOnFinish ? null : this._onFieldBlur(e, blurOnFinish, extraParams),
             onFocus: this._handleFocus,
             autoFocus: true,
             placeholder,
@@ -123,7 +133,7 @@ export default class EditInPlace extends Component {
         if (!this.state.editable) {
             return <span onClick={isDisabled ? null : this.onEditEnable}>{this.state.value}</span>
         } else {
-
+            console.log(type)
             // Custom Inputs
             switch (type) {
                 case "textarea":

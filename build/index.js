@@ -537,17 +537,14 @@ var EditInPlace = function (_Component) {
             value: _this.props.value,
             editable: false,
             error: false
-        }, _this._onFieldChange = function (e, blurOnFinish, extraParams) {
+        }, _this._onFieldBlur = function (e, blurOnFinish, extraParams) {
             var _this$props = _this.props,
                 validate = _this$props.validate,
                 onChange = _this$props.onChange,
                 name = _this$props.name;
 
-            // Update Value
-
-            _this.setState({ value: e.target.value });
-
             // Change Prop and Validation
+
             if (onChange) {
 
                 if (validate) {
@@ -563,6 +560,10 @@ var EditInPlace = function (_Component) {
             }
 
             // Finish if the component finished on blur
+            _this._onFinishEditing();
+        }, _this._onFieldChange = function (e, blurOnFinish) {
+
+            _this.setState({ value: e.target.value });
             if (blurOnFinish) _this._onFinishEditing();
         }, _this.blurOnFinish = ['color'], _this.getEditComponent = function () {
             var _this$props2 = _this.props,
@@ -576,6 +577,7 @@ var EditInPlace = function (_Component) {
                 className = _this$props2.className,
                 extraParams = _this$props2.extraParams;
 
+            // is the input blurable
 
             var blurOnFinish = _this.blurOnFinish.includes(type);
 
@@ -586,7 +588,9 @@ var EditInPlace = function (_Component) {
                 disabled: isDisabled ? true : false,
                 style: _this.state.error ? _extends({}, style, errorStyle) : style,
                 value: _this.state.value,
-                onBlur: blurOnFinish ? null : _this._onFinishEditing,
+                onBlur: function onBlur(e) {
+                    return blurOnFinish ? null : _this._onFieldBlur(e, blurOnFinish, extraParams);
+                },
                 onFocus: _this._handleFocus,
                 autoFocus: true,
                 placeholder: placeholder,
@@ -601,7 +605,7 @@ var EditInPlace = function (_Component) {
                     _this.state.value
                 );
             } else {
-
+                console.log(type);
                 // Custom Inputs
                 switch (type) {
                     case "textarea":
@@ -639,6 +643,14 @@ var EditInPlace = function (_Component) {
             }
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
+
+    /**
+     * Triggered When a Field Value is Blur
+     * @param {Object} e change event of input
+     * @param {boolean} blurOnFinish if the input finished after updating its value
+     * @memberof EditInPlace
+     */
+
 
     /**
      * Triggered When a Field Value is Changed
